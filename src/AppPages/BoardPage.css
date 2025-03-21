@@ -1,0 +1,108 @@
+.board-main-content {
+    margin-left: 0px;
+    flex-grow: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    padding-top: 60px;
+}
+
+
+.board-header {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.board-header h2 {
+    margin: 0;
+}
+
+.board-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.board-content {
+    margin-top: 20px;
+}
+
+
+.board-items {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 15px;
+    align-content: flex-start;
+}
+
+
+
+.board-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, height 0.2s ease-in-out;
+    cursor: pointer;
+    width: 300px;
+    min-height: 100px;
+    padding: 5px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.board-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.board-card .card-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+    text-align: left;
+    flex-grow: 1;
+}
+
+
+.board-card .card-title,
+.board-card .card-text {
+    text-align: left;
+    width: 100%;
+}
+
+
+.board-card .btn {
+    align-self: flex-start;
+    background-color: transparent;
+    color: black;
+    border: none;
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.board-card .btn:hover {
+    background-color: rgba(68, 62, 62, 0.2);
+}
+
+.task-input-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.task-input-container.show {
+    max-height: 100px;
+}
+
+.list-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}

@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-content {
+  flex: 1;
+}
+
+
+.footer {
+  background-color: #4c5165;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
+}
+
+.footer p {
+  margin: 0;
+}
