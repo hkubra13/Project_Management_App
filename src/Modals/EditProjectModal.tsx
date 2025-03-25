@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button"
 import Form from "react-bootstrap/esm/Form"
 import Modal from "react-bootstrap/esm/Modal"
@@ -7,26 +7,33 @@ import Modal from "react-bootstrap/esm/Modal"
 interface EditProjectModalProps {
     show: boolean;
     onHide: () => void;
-    projectId: number | null;
     userId: number | null;
+    project: any;
 }
 
-function EditProjectModal({ show, onHide, projectId, userId }: EditProjectModalProps) {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+function EditProjectModal({ show, onHide, userId, project }: EditProjectModalProps) {
+    const [name, setName] = useState(project?.name || '');
+    const [description, setDescription] = useState(project?.description || '');
+
+        useEffect(() => {
+            if(project){
+                setName(project.name|| "");
+                setDescription(project.description || "");
+            }
+        }, [project]);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         const updatedProject = {
-            projectId: projectId,
+            projectId: project.projectId,
             name,
             description,
             userId: userId
         }
         try {
             console.log(updatedProject)
-            const response = await axios.put(import.meta.env.VITE_REACT_APP_API + '/Project/' + projectId, updatedProject)
+            const response = await axios.put(import.meta.env.VITE_REACT_APP_API + '/Project/' + project.projectId, updatedProject)
             console.log(response.data)
             onHide();
         } catch (error) {

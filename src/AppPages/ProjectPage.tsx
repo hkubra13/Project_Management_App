@@ -66,7 +66,7 @@ function ProjectPage({ projectId }: ProjectPageProps) {
             <EditProjectModal
                 show={showEditModal}
                 onHide={() => setEditShowModal(false)}
-                projectId={projectId}
+                project={project}
                 userId={project.userId}
             />
 

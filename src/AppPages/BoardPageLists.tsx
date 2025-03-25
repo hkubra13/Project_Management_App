@@ -5,6 +5,9 @@ import axios from "axios";
 import ListCardDropdown from "./ListCardDropdown";
 import DeleteListModal from "../Modals/DeleteListModal";
 import EditListModal from "../Modals/EditListModal";
+import TaskDropdown from "./TaskDropdown";
+import EditTaskModal from "../Modals/EditTaskModal";
+import DeleteTaskModal from "../Modals/DeleteTaskModal";
 
 interface BoardPageListsProps {
     boardId: number | null;
@@ -21,6 +24,9 @@ export default function BoardPageLists({ boardId }: BoardPageListsProps) {
     const [showEditListModal, setShowEditListModal] = useState(false);
     const [showDeleteListModal, setShowDeleteListModal] = useState(false);
     const [selectedList, setSelectedList] = useState<any>(null);
+    const [selectedTask, setSelectedTask] = useState<any>(null);
+    const [showEditTaskModal, setShowEditTaskModal] = useState(false);
+    const [showDeleteTaskModal, setShowDeleteTaskModal] = useState(false);
 
     useEffect(() => {
         const storedUserId = localStorage.getItem("userId");
@@ -121,14 +127,24 @@ export default function BoardPageLists({ boardId }: BoardPageListsProps) {
         }
     }
 
-    const handleEditClick = (list: any) => {
+    const handleEditListClick = (list: any) => {
         setSelectedList(list);
         setShowEditListModal(true);
     }
 
-    const handleDeleteClick = (list: any) => {
+    const handleDeleteListClick = (list: any) => {
         setSelectedList(list);
         setShowDeleteListModal(true);
+    }
+
+    const handleEditTaskClick = (task: any) => {
+        setSelectedTask(task);
+        setShowEditTaskModal(true);
+    }
+
+    const handleDeleteTaskClick = (task: any) => {
+        setSelectedTask(task);
+        setShowDeleteTaskModal(true);
     }
 
     return (
@@ -140,7 +156,7 @@ export default function BoardPageLists({ boardId }: BoardPageListsProps) {
                         <Card.Body>
                             <Form onSubmit={handleSubmit}>
                                 <Card.Title>Add List</Card.Title>
-                                <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                                <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter list name" />
                                 <Button type="submit">Save</Button>
                             </Form>
                         </Card.Body>
@@ -149,20 +165,27 @@ export default function BoardPageLists({ boardId }: BoardPageListsProps) {
                         <Card className="board-card" id={list.listId} key={list.listId}>
                             <Card.Body>
                                 <Form>
-
                                     <Card.Title className="list-title">
                                         {list.name}
                                         <ListCardDropdown
-                                            onEdit={() => handleEditClick(list)}
-                                            onDelete={() => handleDeleteClick(list)} />
+                                            onEdit={() => handleEditListClick(list)}
+                                            onDelete={() => handleDeleteListClick(list)} />
                                     </Card.Title>
+
                                     {tasks[list.listId]?.map((task) => (
-                                        <Button key={task.id}>{task.title}</Button>
+                                        <div key={task.id} className="task-item-container">
+                                            <Button>{task.title}</Button>
+                                            <TaskDropdown
+                                                onEdit={() => handleEditTaskClick(task)}
+                                                onDelete={() => handleDeleteTaskClick(task)} />
+                                        </div>
                                     ))}
+
                                     {addTaskButton[list.listId] && (
                                         <>
                                             <Form.Control
                                                 type="text"
+                                                placeholder="Enter task title"
                                                 value={taskName[list.listId] || ""}
                                                 onChange={(e) => setTaskName(prev => ({
                                                     ...prev,
@@ -187,12 +210,27 @@ export default function BoardPageLists({ boardId }: BoardPageListsProps) {
                 onHide={() => setShowEditListModal(false)}
                 show={showEditListModal}
                 list={selectedList}
-                boardId={boardId} />
+                boardId={boardId}
+            />
 
             <DeleteListModal
                 show={showDeleteListModal}
                 onHide={() => setShowDeleteListModal(false)}
                 listId={selectedList?.listId}
+            />
+
+            <EditTaskModal
+                show={showEditTaskModal}
+                onHide={() => setShowEditTaskModal(false)}
+                listId={selectedTask?.listId}
+                task={selectedTask}
+                userId={userId}
+            />
+
+            <DeleteTaskModal 
+                show={showDeleteTaskModal} 
+                onHide={() => setShowDeleteTaskModal(false)} 
+                taskId={selectedTask?.taskId} 
             />
         </>
     );

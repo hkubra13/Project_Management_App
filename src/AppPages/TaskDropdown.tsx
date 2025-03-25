@@ -1,12 +1,12 @@
 import { Dropdown } from "react-bootstrap";
 import { FaEllipsisH } from "react-icons/fa";
 
-interface ListCardDropdownProps {
+interface TaskDropdownProps {
     onEdit: () => void;
     onDelete: () => void;
 }
 
-export default function ListCardDropdown({ onEdit, onDelete }: ListCardDropdownProps) {
+export default function TaskDropdown({ onEdit, onDelete }: TaskDropdownProps) {
     return (
         <Dropdown>
             <Dropdown.Toggle variant="link" id="dropdown-custom-components">

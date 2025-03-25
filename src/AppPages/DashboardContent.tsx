@@ -14,9 +14,10 @@ function DashboardContent({ projects, onProjectSelect, userId }: DashboardConten
     const [showEditModal, setEditShowModal] = useState(false);
     const [showDeleteModal, setDeleteShowModal] = useState(false);
     const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
+    const [selectedProject, setSelectedProject] = useState<any>(null);
 
-    const handleEditModalShow = (projectId: number) => {
-        setSelectedProjectId(projectId);
+    const handleEditModalShow = (project: any) => {
+        setSelectedProject(project);
         setEditShowModal(true);
     };
     const handleEditModalClose = () => {
@@ -63,7 +64,7 @@ function DashboardContent({ projects, onProjectSelect, userId }: DashboardConten
                                         <div className="clickable-card-buttons">
                                             <Button variant="outline-primary" onClick={(e) => {
                                                 e.stopPropagation();
-                                                handleEditModalShow(project.projectId)
+                                                handleEditModalShow(project)
                                             }}>
                                                 Edit
                                             </Button>
@@ -85,8 +86,8 @@ function DashboardContent({ projects, onProjectSelect, userId }: DashboardConten
             <EditProjectModal
                 show={showEditModal}
                 onHide={handleEditModalClose}
-                projectId={selectedProjectId}
-                userId={userId} />
+                userId={userId}
+                project={selectedProject} />
 
             <DeleteProjectModal
                 show={showDeleteModal}

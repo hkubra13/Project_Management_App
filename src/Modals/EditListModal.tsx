@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -12,7 +12,13 @@ interface EditListModalProps {
 }
 
 function EditListModal({ show, onHide, list, boardId }: EditListModalProps) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(list?.name || "");
+
+  useEffect(() => {
+    if(list){
+      setName(list.name || "");
+    }
+  }, [list]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

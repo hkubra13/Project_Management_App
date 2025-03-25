@@ -17,6 +17,7 @@ function ProjectPageBoards({ projectId, onBoardSelect }: ProjectPageBoardsProps)
     const [showEditBoardModal, setShowEditBoardModal] = useState(false);
     const [showDeleteBoardModal, setShowDeleteBoardModal] = useState(false);
     const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
+    const [selectedBoard, setSelectedBoard] = useState<any>(null);
 
 
     const handleShowAddBoardModal = () => {
@@ -72,7 +73,7 @@ function ProjectPageBoards({ projectId, onBoardSelect }: ProjectPageBoardsProps)
                                         variant="outline-primary"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            setSelectedBoardId(board.boardId);
+                                            setSelectedBoard(board);
                                             handleShowEditBoardModal();
                                         }}
                                     >
@@ -94,8 +95,17 @@ function ProjectPageBoards({ projectId, onBoardSelect }: ProjectPageBoardsProps)
                     ))}
                 </div>
             </div>
-            <AddBoardModal show={showAddBoardModal} onHide={handleCloseAddBoardModal} projectId={projectId} />
-            <EditBoardModal show={showEditBoardModal} onHide={handleCloseEditBoardModal} projectId={projectId} boardId={selectedBoardId} />
+            <AddBoardModal 
+                show={showAddBoardModal} 
+                onHide={handleCloseAddBoardModal} 
+                projectId={projectId} 
+            />
+            <EditBoardModal 
+                show={showEditBoardModal} 
+                onHide={handleCloseEditBoardModal} 
+                projectId={projectId} 
+                board={selectedBoard} 
+            />
             <DeleteBoardModal show={showDeleteBoardModal} onHide={handleCloseDeleteBoardModal} boardId={selectedBoardId} />
         </>
     )

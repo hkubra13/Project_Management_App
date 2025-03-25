@@ -6,7 +6,7 @@ function DashboardNavbar({ logout, show }: { logout: () => void, show: () => voi
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar-custom">
       <Container className="d-flex justify-content-between">
-        <Navbar.Brand>Navbar</Navbar.Brand>
+        <Navbar.Brand>Project Management</Navbar.Brand>
         <NavbarDropdown logout={logout} show={show} />
       </Container>
     </Navbar>

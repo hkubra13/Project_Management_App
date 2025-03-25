@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -8,15 +8,24 @@ interface EditUserModal {
     show: boolean;
     onHide: () => void;
     userId: number | null;
-    user: { FirstName: string, LastName: string, Username: string, EmailAddres: string }[]
+    user: any;
 }
 
 function EditUserModal({ show, onHide, userId, user }: EditUserModal) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState(user?.firstName || "");
+    const [lastName, setLastName] = useState(user?.lastName || "");
+    const [userName, setUserName] = useState(user?.userName || "");
+    const [email, setEmail] = useState(user?.email || "");
     const [passwordHash, setPasswordHash] = useState("");
+
+            useEffect(() => {
+                if(user){
+                    setFirstName(user.firstName|| "");
+                    setLastName(user.lastName || "");
+                    setUserName(user.userName || "");
+                    setEmail(user.email || "");
+                }
+            }, [user]);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();

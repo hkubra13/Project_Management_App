@@ -62,7 +62,7 @@ export default function BoardPage({ onBack, boardId }: BoardPageProps) {
                 show={showEditBoardModal}
                 onHide={() => setShowEditBoardModal(false)}
                 projectId={board.projectId}
-                boardId={boardId}
+                board={board}
             />
 
             <DeleteBoardModal

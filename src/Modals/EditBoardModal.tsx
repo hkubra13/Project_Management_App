@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -8,22 +8,28 @@ interface EditBoardModalProps {
   show: boolean,
   onHide: () => void,
   projectId: number | null,
-  boardId: number | null
+  board: any;
 }
 
-function EditBoardModal({ show, onHide, projectId, boardId }: EditBoardModalProps) {
-  const [name, setName] = useState("");
+function EditBoardModal({ show, onHide, projectId, board }: EditBoardModalProps) {
+  const [name, setName] = useState(board?.name || "");
+
+  useEffect(() => {
+    if(board){
+      setName(board.name || "");
+    }
+  }, [board])
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     const updatedBoard = {
-      boardId: boardId,
+      boardId: board.boardId,
       name,
       projectId: projectId
     }
     try {
-      const response = await axios.put(import.meta.env.VITE_REACT_APP_API + "/Board/" + boardId, updatedBoard);
+      const response = await axios.put(import.meta.env.VITE_REACT_APP_API + "/Board/" + board.boardId, updatedBoard);
       console.log(response.data);
       onHide();
     } catch (error) {
